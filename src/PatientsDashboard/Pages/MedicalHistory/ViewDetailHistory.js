@@ -1,26 +1,26 @@
-import { BsFillPersonVcardFill } from 'react-icons/bs'
+
 import { RiMedicineBottleFill } from 'react-icons/ri'
-import { MdVaccines } from 'react-icons/md'
-import MedicalHistory from '../PageComponents/Accordion/MedicalHistory'
-import MedicalReport from '../PageComponents/Accordion/MedicalReport'
-import AddDetailsWidget from '../PageComponents/AddDetailsWidget'
+
+
+import MedicalReport from './Accordion/MedicalReport'
+
 import { useContext, useEffect, useState } from 'react'
-import { PatientDetailsContext } from './PatientDetailContext'
+
 import { AuthContext } from '../../../Store/UserState'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import axios from 'axios'
 
-const ViewMedical = () => {
 
-    const { patientsInformation } = useContext(PatientDetailsContext);
+const ViewDetailHistory = () => {
+
     const { getStoredCookie } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
     const GoBack = () => {
         navigate(-1);
-   }
+    }
 
 
     const [AppointmentInformation, setAppointmentInformation] = useState();
@@ -28,12 +28,12 @@ const ViewMedical = () => {
     const [Reports, setReports] = useState();
     const [Drug, setDrug] = useState();
 
-    const { pastAppointmentId } = useParams();
+    const { AppointmentId } = useParams();
 
     useEffect(() => {
         axios({
             method: "GET",
-            url: `${process.env.REACT_APP_API}api/diagnosis/get-diagnosis-test-prescription/${pastAppointmentId}`,
+            url: `${process.env.REACT_APP_API}api/diagnosis/get-diagnosis-test-prescription/${ AppointmentId }`,
             headers: {
                 'Authorization': `Bearer ${getStoredCookie("token")}`,
             },
@@ -58,7 +58,6 @@ const ViewMedical = () => {
 
     return (
         <>
-            {!patientsInformation?.AppointmentDetails?.isDiagnosisFilled ? <AddDetailsWidget patientsInformation={patientsInformation} /> : null}
             <button  onClick={GoBack} type="button" class="mb-5 bg-[#72b4f5] text-white rounded-md  border-gray-100 py-2  px-3">
                 <div class="flex flex-row align-middle">
                     <svg class="w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -189,4 +188,4 @@ const ViewMedical = () => {
     )
 }
 
-export default ViewMedical;
+export default ViewDetailHistory;
