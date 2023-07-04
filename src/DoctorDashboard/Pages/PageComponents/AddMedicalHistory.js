@@ -10,6 +10,7 @@ import AddReport from './Accordion/AddReport'
 import { PatientDetailsContext } from '../PatientsDetailsState/PatientDetailContext'
 import AddHistoryModal from './AddHisoryModal/AddHistoryModal'
 import SearchComponent from './DiseasesSearch/SearchComponent'
+import AI from './AItool/AI'
 
 
 
@@ -145,56 +146,20 @@ const AddMedicalHistory = () => {
                                 </p>
                                 <PescribeDrug />
                             </div>
-                            <div className='p-5'>
+                            
+                                <div class="mt-5 w-full p-5  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                 <p class="text-xl p-3 font-medium text-gray-900 truncate dark:text-white">
-                                    Active Medication Details
+                                    AI Pneumonia Detection
                                 </p>
-                                <div class="w-full p-5  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                                    <ol class="relative border-l border-gray-200 dark:border-gray-700">
-                                        <li class="mb-8 ml-4">
-                                            <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
-                                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white"><button
-                                                type="button"
-                                                disabled="true"
-                                                className="px-5 py-2 md:px-2 md:text-xs text-sm rounded-md text-white bg-[#42ADF0]"
-                                            >
-                                                Clindyamicin
-                                            </button></h3>
-                                            <time class="mb-1 mr-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Dosage : 500 Mg</time>
-                                            <br />
-                                            <time class="mb-1 text-sm font-normal leading-none text-gray-800 ">Status : Active</time>
-                                            <br />
-                                            <time class="mb-1 text-sm font-normal leading-none text-gray-800 ">Frequency : 2 times a day</time>
-
-                                        </li>
-                                        <li class="ml-4">
-                                            <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
-                                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white"><button
-                                                type="button"
-                                                disabled="true"
-                                                className="px-5 py-2 md:px-2 md:text-xs text-sm rounded-md text-white bg-[#42ADF0]"
-                                            >
-                                                Azithromycin
-                                            </button></h3>
-                                            <time class="mb-1 mr-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">Dosage : 500 Mg</time>
-                                            <br />
-                                            <time class="mb-1 text-sm font-normal leading-none text-gray-800 ">Status : Active</time>
-                                            <br />
-                                            <time class="mb-1 text-sm font-normal leading-none text-gray-800 ">Frequency : 2 times a day</time>
-
-                                        </li>
-                                    </ol>
-
+                                <p class="pl-3 pr-3 break-words tracking-tight text-gray-500 text-sm">Note : AI tools can assist in the diagnostic process but may not provide 100% accuracy</p>
+                                      <AI/>
                                 </div>
-
-
                             </div>
                             <div class="float-right flex m-6 space-x-3 md:mt-6">
                                 <button  type='submit' class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-[#42ADF0] rounded-lg  focus:ring-4 focus:outline-none ">Add record</button>
                                 <button onClick={() => navigate(-1)} class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Cancel</button>
                             </div>
                         </div>
-                    </div>
                     </form>
                 </div>
               

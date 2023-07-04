@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
-import NepalMap from './nepal.svg'
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { DashBoardContext } from "./Context/Dashboard";
 
-const Map = ({Name,setName}) => {
+const Map = () => {
    const navigate = useNavigate();
-  ;
+   const [Active,setActive] = useState(false);
+   const {setCount,setName} = useContext(DashBoardContext)
 
     useEffect(() => {
 
         let a = document.getElementsByClassName("mkhover");
+        
         for(let i = 0 ; i < a.length;i++){
            a[i].style.fill="#3567aa";
         }
@@ -26,19 +28,30 @@ const Map = ({Name,setName}) => {
               navigate("/prov6")
          }
     } 
+    
 
     const districtOver = (e) => {
+          if(e.target.style.fill !== "rgb(53, 103, 170)") {
+               setActive(true)
+          }
+          setCount(e.target.getAttribute("count"))
+          setName(e.target.id);
+
           e.target.style.fill = "#d3d3d3";
           setName(e.target.id)
     }
 
     const districtOut = (e) => {
-          e.target.style.fill = "#3567aa"
-          setName('')
+          if(Active) {
+               e.target.style.fill = "#bd465d"
+               setActive(false);
+          }else{
+               e.target.style.fill = "#3567aa"
+          }
+           setName('');
+           setCount('');
     }
  
-
-
 
 
     return (
@@ -49,7 +62,7 @@ const Map = ({Name,setName}) => {
         
         <g id="pradesh-5">
          
-         <g><path id="nawalparasiwest" onClick={districtClick}  onMouseOut={districtOut} onMouseOver={districtOver} class="mkhover prov5" d="M578.551,545.754c-1.527,0.624-2.381,2.637-2.151,4.365c1.698,1.813,4.192,1.104,6.403,1.188c-3.398,2.809-2.494,7.798-5.896,10.688c-2.495-0.198-5.104-0.709-7.513,0.396c-1.392,2.101-1.813,5.304-0.396,7.515c1.39,1.188,3.005,2.098,4.593,3.09c-1.503,1.503-2.807,4.195-5.301,3.714c-1.588-0.709-2.807-1.896-4.11-2.892c-4.791-3.997-10.914-5.612-15.984-8.901c-4.706-3.004-9.896-4.903-14.517-7.908c-0.99-7.597-0.794-15.19-1.502-22.705c1.105-2.41,2.409-5.301,5.104-5.896c4.706-1.307,8.703-4.11,12.896-6.293c3.089-1.814,5.414-6.013,9.41-5.612c4.763,0.453,9.524,0.142,14.23,0.396L578.551,545.754z" title="Nawalparasi West"></path></g>
+         <g><path id="NAWALPARASI (BARDAGHAT SUSTA WEST)" onClick={districtClick}  onMouseOut={districtOut} onMouseOver={districtOver} class="mkhover prov5" d="M578.551,545.754c-1.527,0.624-2.381,2.637-2.151,4.365c1.698,1.813,4.192,1.104,6.403,1.188c-3.398,2.809-2.494,7.798-5.896,10.688c-2.495-0.198-5.104-0.709-7.513,0.396c-1.392,2.101-1.813,5.304-0.396,7.515c1.39,1.188,3.005,2.098,4.593,3.09c-1.503,1.503-2.807,4.195-5.301,3.714c-1.588-0.709-2.807-1.896-4.11-2.892c-4.791-3.997-10.914-5.612-15.984-8.901c-4.706-3.004-9.896-4.903-14.517-7.908c-0.99-7.597-0.794-15.19-1.502-22.705c1.105-2.41,2.409-5.301,5.104-5.896c4.706-1.307,8.703-4.11,12.896-6.293c3.089-1.814,5.414-6.013,9.41-5.612c4.763,0.453,9.524,0.142,14.23,0.396L578.551,545.754z" title="Nawalparasi West"></path></g>
         
         
         <g><path id="rukumeast"  onClick={districtClick} onMouseOut={districtOut} class="mkhover prov5" d="M422.221,340.129c2.271-0.595,4.507-1.389,6.774-1.729c2.296,0.312,4.394,2.012,6.804,1.188c3.603-0.907,7.795-1.588,11.196,0.396c5.103,3.997,11.594,5.609,17.802,7.002c0.907,1.699,1.701,3.483,2.494,5.188c1.588,0.113,3.203,0.313,4.791,0.396c0.113,2.098,0.312,4.192,0.198,6.403c0.312,2.298-2.016,3.603-3.005,5.414c-0.396,1.503-0.598,3.203-0.797,4.791c-6.688,1.19-13.604-0.989-20.098,1.19c-1.896,0.595-2.409,2.69-2.098,4.394c0,2.494,2.69,3.603,4.31,5.104c-0.313,0.708-1.104,2.098-1.503,2.689c-2.689-1.104-5.499-2.491-8.391-3.2c-0.708,2.211-1.19,4.593-1.502,6.889c-1.701,0.113-3.487,0.198-5.188,0.51c1.19,2.015,2.494,3.997,3.912,5.896c-2.212,0.595-4.395,2.689-6.688,1.502c-3.093-1.392-5.813-3.486-9.215-3.997c-2.297-0.368-4.139-2.186-6.265-3.004l6.491-47.059L422.221,340.129z" title="Rukum East"></path></g>

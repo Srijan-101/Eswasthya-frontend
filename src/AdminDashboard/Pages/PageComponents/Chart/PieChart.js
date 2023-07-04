@@ -1,27 +1,61 @@
-import { Chart } from "react-google-charts";
+import React, { PureComponent } from 'react';
+import { PieChart, Pie, Cell, Tooltip } from 'recharts';
+
+const Chartspie = ({ Municipality }) => {
 
 
-const Chartspie = () => {
-    const options = {
-        title: "Covid Immunization",
-      };
-      const data = [
-        ["Task", "Hours per Day"],
-        ["Moderna", 11],
-        ["Vaxzevria", 2],
-        ["Janssen", 2],
-        ["Covaxin", 2],
-        ["Covilo", 7],
-      ];
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
     return (
-        <Chart
-        chartType="PieChart"
-        data={data}
-        options={options}
-        width={"100%"}
-        height={"500px"}
-      />
-    ) 
+      <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
+  };
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip bg-[#71b5f5] p-2 active:outline-none " style={{ border: '1px solid white' }}>
+          {console.log(payload)}
+          <p className="label" style={{ color: 'white' }}>{`${payload[0].payload.municipalityName} : ${payload[0].payload.count}`}</p>
+        </div>
+      );
+    }
+    return null;
+  };
+
+
+
+  return (
+    <>
+      {
+        Municipality.length !== 0 ? (
+          <PieChart width={400} height={400}>
+            <Pie
+              data={Municipality}
+              labelLine={false}
+              label={renderCustomizedLabel}
+              outerRadius={150}
+              fill="#8884d8"
+              dataKey="count"
+            >
+              {Municipality.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Tooltip content={<CustomTooltip />} />
+          </PieChart>
+        ) : <div class="text-base mt-6 text-center font-semibold">No data</div>
+      }
+
+    </>
+  )
 }
 
 
