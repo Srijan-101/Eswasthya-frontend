@@ -39,7 +39,6 @@ const ViewMedical = () => {
             },
         })
             .then((res) => {
-                console.log(res);
                 setReports(res?.data?.data?.testResultList);
                 setDrug(res?.data?.data?.prescriptionList);
                 setAppointmentInformation({

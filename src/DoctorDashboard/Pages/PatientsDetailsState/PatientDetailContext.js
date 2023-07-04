@@ -17,8 +17,9 @@ const PatientDetailsContextProvider = (props) => {
             headers: {
                 'Authorization': `Bearer ${getStoredCookie("token")}`,
             },
-        })
+           })
             .then((ress) => {
+                console.log(ress);
                 axios({
                     method: "GET",
                     url: `${process.env.REACT_APP_API}api/patient/view/${ress?.data?.data?.patientId}`,
