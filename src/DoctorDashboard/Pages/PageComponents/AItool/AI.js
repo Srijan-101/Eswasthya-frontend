@@ -45,11 +45,12 @@ const AI = () => {
     return (
         <>  
           
-           {Data ?<img width="280px" src="https://res.cloudinary.com/dwo9yx1r8/image/upload/v1688460787/z5ad57vsycxz3gq2hvil.jpg"/> : null} 
-           {
-             Data?.prediction == "1" ? (<p className="pl-3 pr-3 break-words tracking-tight text-gray-500 text-sm">Analyzing the X-ray, our AI has predicted that the patient may have pneumonia.</p>) 
-              : Data?.predition == "0" ? <p className="pl-3 pr-3 break-words tracking-tight text-gray-500 text-sm">Analyzing the X-ray, our AI has predicted that the patient may not have pneumonia.</p> : null
-           }
+           {Data ?<img width="280px" src={Data?.processed_image_url}/> : null} 
+
+           {Data?.prediction === 1 ? (<p className="pl-3 pr-3 break-words tracking-tight text-gray-500 text-sm">Analyzing the X-ray, our AI has predicted that the patient may have pneumonia.</p>) : null}
+              
+           {Data?.prediction === 0 ? <p className="pl-3 pr-3 break-words tracking-tight text-gray-500 text-sm">Analyzing the X-ray, our AI has predicted that the patient may not have pneumonia.</p> : null}
+           
            
             <div class="p-3 flex items-center justify-center w-full">
                 

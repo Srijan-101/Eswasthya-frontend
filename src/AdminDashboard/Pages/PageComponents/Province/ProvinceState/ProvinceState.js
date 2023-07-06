@@ -33,13 +33,11 @@ const ProvinceContextProvider = (props) => {
         setName(e.target.id);
         setCount(e.target.getAttribute("count"))
         setDistrictId(e.target.getAttribute("districtId"));
-
-
     }
 
 
     useEffect(() => {
-            
+        setMunicipality([]);
         if (optionControl.firstOp === "Drug" && optionControl.ThirdOp === null) {
             axios({
                 method: "GET",
