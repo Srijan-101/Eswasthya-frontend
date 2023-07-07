@@ -86,7 +86,6 @@ const Doctor = () => {
 
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
                     {
-
                         filteredData.length === 0  ? DoctorData.map((ele) => {
                             return (
                                 <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow">

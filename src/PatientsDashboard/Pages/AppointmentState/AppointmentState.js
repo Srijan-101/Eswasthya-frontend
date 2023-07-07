@@ -76,7 +76,7 @@ const AppointmentComponent = ({hospitalList}) => {
                             id="appt"
                             name="appt"
                             min="09:00"
-                            max="18:00"
+                            max="17:00"
                             required
                             onChange={onAppointmentChange("appointmentTime")}
                         ></input>
@@ -84,8 +84,6 @@ const AppointmentComponent = ({hospitalList}) => {
                 </div>
                 <div className="relative mt-6">
                     <div className='grid grid-cols-1 gap-6 '>
-
-
                         <div className=' text-left  text-gray-400 '>
                             <h1 className='sm:text-[15px] text-[12px] pb-2 relative text-gray-400'>Reason for visit</h1>
                             <div class="relative max-w-sm">

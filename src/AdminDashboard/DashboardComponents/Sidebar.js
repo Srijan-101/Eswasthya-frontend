@@ -1,5 +1,5 @@
 import { useState,useContext } from "react"
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation,useNavigate } from 'react-router-dom'
 
 import {BsArrowLeftCircle} from 'react-icons/bs'
 import {AiFillHome} from 'react-icons/ai'
@@ -15,24 +15,33 @@ const Sidebar = () => {
     const location = useLocation()
     const {onLogout} = useContext(AuthContext)
 
+
+    // const Menus = [
+    //     { title: 'Home',function:false ,path: '/home',src: <AiFillHome/> },
+    //     { title: 'Appointments',function:false  ,path: '/Appointments' ,src:<BsThermometerSun/> },
+    //     { title: 'Patients',path:'/Patients' ,function:false  ,src:<FaHospitalUser/> },
+    //     { title: 'Logout',function:true,src:<TbLogout/> }
+    // ]
+
+
     const Menus = [
         { title: 'Home',function:false ,path: '/home',src: <AiFillHome/> },
-        { title: 'Appointments',function:false  ,path: '/Appointments' ,src:<BsThermometerSun/> },
-        { title: 'Patients',path:'/Patients' ,function:false  ,src:<FaHospitalUser/> },
         { title: 'Logout',function:true,src:<TbLogout/> }
     ]
 
+    const naviagte = useNavigate();
+
     const Logout = async () => {
+        naviagte("/")
         onLogout()
         window.location.reload();
     } 
-
     return (
         <>  
           
             <div
-                className={`${open ? 'w-52  transition-all' : 'w-fit'
-                    } sm:block  relative   bg-gray-100 border-r p-4`}>
+                className={`${open ? 'w-62  transition-all' : 'w-fit'
+                    } sm:block  relative   bg-gray-100 border-r p-6`}>
                 <BsArrowLeftCircle
                     className={` ${!open && 'rotate-180'
                         } absolute  transition ease-in-out text-3xl  fill-white  bg-eswasthyaprim  rounded-full cursor-pointer top-9 -right-4 `}

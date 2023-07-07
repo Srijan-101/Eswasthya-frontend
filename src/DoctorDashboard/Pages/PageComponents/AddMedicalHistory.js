@@ -31,7 +31,7 @@ const AddMedicalHistory = () => {
     return (
         <> 
             <AddHistoryModal patientsInformation={patientsInformation}/>
-            <div className="w-full  bg-metal mx-auto grid lg:grid-rows-2 lg:grid-flow-col gap-2 md:grid-col-1">
+            <div className="w-full h-screen bg-metal mx-auto grid lg:grid-rows-2 lg:grid-flow-col gap-2 md:grid-col-1">
                 <div className="lg:row-span-2  h-max rounded-sm border-[2px] border-[#f8f8f8] bg-white shadow-xl ">
                 <form onSubmit={onAdd}>
                     <div className="info flex items-center bg-eswasthyaprim text-white p-3">
@@ -131,6 +131,10 @@ const AddMedicalHistory = () => {
                                     <AddReport/>
                                 </div>
                             </div>
+                            <div class="float-left flex mt-6 m-6 space-x-3 md:mt-6">
+                                <button  type='submit' class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-[#42ADF0] rounded-lg  focus:ring-4 focus:outline-none ">Add record</button>
+                                <button onClick={() => navigate(-1)} class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Cancel</button>
+                            </div>
 
                         </div>
 
@@ -155,10 +159,7 @@ const AddMedicalHistory = () => {
                                       <AI/>
                                 </div>
                             </div>
-                            <div class="float-right flex m-6 space-x-3 md:mt-6">
-                                <button  type='submit' class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-[#42ADF0] rounded-lg  focus:ring-4 focus:outline-none ">Add record</button>
-                                <button onClick={() => navigate(-1)} class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">Cancel</button>
-                            </div>
+                            
                         </div>
                     </form>
                 </div>

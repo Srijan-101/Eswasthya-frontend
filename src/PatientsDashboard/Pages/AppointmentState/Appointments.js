@@ -71,6 +71,21 @@ const Appointment = () => {
             .catch((error) => console.log(error))
     }, [Fetch])
 
+    const [filteredData, setFilteredData] = useState([]);
+    function performSearch(e) {
+        const searchTerm = e.target.value.toUpperCase();
+         const filteredResults = patientData.filter(person => {
+                const fullName = person.doctorName.toUpperCase();
+                return fullName.includes(searchTerm);
+            });
+        return filteredResults;
+    }
+    const onSearch = (e) => {
+        let filteredResults = performSearch(e)
+        setFilteredData(filteredResults);
+    }
+
+
     const ConditionalEvaluate = (status) => {
         if (status !== "CREATED") {
             if (status === "VERIFIED") return "Pending.."
@@ -124,7 +139,7 @@ const Appointment = () => {
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
                         </div>
-                        <input type="text" id="table-search-users" class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for users" />
+                        <input onChange={onSearch} type="text" id="table-search-users" class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for users" />
                     </div>
                 </div>
                 <table class="overflow-scroll w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -154,8 +169,59 @@ const Appointment = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {patientData.length === 0 ? <div class="pl-10 text-base mt-4 text-center font-semibold">No appointment data</div> : (
-                            patientData.map((ele, key) => {
+
+                        {
+                            filteredData.length === 0 ? (
+                                patientData.length === 0 ? <div class="pl-10 text-base mt-4 text-center font-semibold">No appointment data</div> : (
+                                    patientData.map((ele, key) => {
+                                        return (
+                                            <tr key={key} class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                <th scope="row" class="flex items-center px-6 py-8 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    <img class="w-10 h-10 rounded-full" src={ele?.imagePath} alt={ele?.doctorName} />
+                                                    <div class="pl-3">
+                                                        <div class="text-base font-semibold">Dr.{ele?.doctorName}</div>
+                                                        <div class="font-normal text-gray-500">{ele?.specialization},{ele?.education}</div>
+                                                    </div>
+                                                </th>
+                                                <td class="px-2 py-2 w-min">
+                                                    {ele?.hospitalName}
+                                                </td>
+                                                <td class="px-2 py-3">
+                                                    {ele.appointmentDate}
+                                                </td>
+                                                <td className="px-2 py-3">
+                                                    <button
+                                                        type="button"
+                                                        disabled="true"
+                                                        className="px-3 py-2 text-sm rounded-md text-white bg-[#42ADF0]"
+                                                    >
+                                                        {ele.appointmentTime}
+                                                    </button>
+                                                </td>
+                                                <td class="px-2 py-3">
+                                                    <textarea contentEditable="false" disabled id="message" rows="3" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">{ele.reasonForVist}</textarea>
+                                                </td>
+                                                <td className="px-2 py-3">
+                                                    <button
+                                                        type="button"
+                                                        disabled="true"
+                                                        className={`px-5 py-2 text-sm rounded-md text-white ${ele.status === "REJECTED" ? "bg-[#db4369]" : "bg-[#42ADF0]"}`}
+                                                    >
+                                                        {
+                                                            ConditionalEvaluate(ele.status)
+                                                        }
+                                                    </button>
+                                                </td>
+                                                <td className="px-3 py-4">
+                                                    {
+                                                        GrantButton(ele.status,ele)
+                                                    }
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                )
+                            ) : filteredData.map((ele,key) => {
                                 return (
                                     <tr key={key} class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <th scope="row" class="flex items-center px-6 py-8 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -202,7 +268,7 @@ const Appointment = () => {
                                     </tr>
                                 )
                             })
-                        )}
+                        }
                     </tbody>
                 </table>
             </div>
