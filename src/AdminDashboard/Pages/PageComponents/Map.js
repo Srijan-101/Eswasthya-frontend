@@ -27,6 +27,9 @@ const Map = () => {
          if(e.target.classList[1] === "prov6"){
               navigate("/prov6")
          }
+         if(e.target.classList[1] === "prov3"){
+          navigate("/prov3")
+     }  
     } 
     
 

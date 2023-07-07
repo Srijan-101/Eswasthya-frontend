@@ -103,20 +103,7 @@ function LogIn() {
                 Sign In
               </button>
             </div>
-            <div class="relative flex py-5 items-center">
-              <div class="flex-grow border-t border-gray-400"></div>
-              <span class="flex-shrink mx-4 text-gray-400">or</span>
-              <div class="flex-grow border-t border-gray-400"></div>
-            </div>
-
-            <p>
-              <button className='flex items-center items-center  flex-col mb-4 sm:ml-[160px] ml-12 rounded-md hover:bg-[#E6F4F9] '>
-                <span class="inline-flex items-baseline  relative p-3 rounded-md border-[2px] border-[#d4d2d2] sm:w-[200px] w-[172px] sm:text-[17px] text-[13px]">
-                  <img src={google} alt="" class="self-center w-5 h-5 rounded-full mx-1" />
-                  Log in with Google
-                </span>
-              </button>
-            </p>
+      
 
             <div className=' text-center sm:mt-[25px] mt-5 text-gray-500 '>
               <p className='sm:text-l text-[14px] text-center '>Don't have an account yet?  <a className='sm:text-[15px] text-[15px]  text-[#42ADF0] hover:text-[#4D6B9C] ' href='/signup'>Sign up here</a></p>

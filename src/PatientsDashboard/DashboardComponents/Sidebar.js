@@ -28,8 +28,8 @@ const Sidebar = () => {
     const naviagte = useNavigate();
 
     const Logout = async () => {
-        onLogout()
         naviagte("/")
+        onLogout()
         window.location.reload();
     } 
 

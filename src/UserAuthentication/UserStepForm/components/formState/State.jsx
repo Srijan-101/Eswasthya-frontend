@@ -11,6 +11,8 @@ const FormContextProvider = (props) => {
   const [formNo, setFormNo] = useState(formArray[0]);
   const { isAuth, getStoredCookie ,onLogin} = useContext(AuthContext);
   const navitage = useNavigate();
+  
+  const [Flag, setFlag] = useState(true);
 
   const next = () => {
     setFormNo(formNo + 1);
@@ -84,7 +86,7 @@ const FormContextProvider = (props) => {
         });
     }
 
-  },[Userinformation])
+  },[Flag])
 
 
   const onSubmit = (event) => {
@@ -103,7 +105,7 @@ const FormContextProvider = (props) => {
       setUserInformation((prevState) => {
         return { ...prevState, imageUrl: res?.data?.url }
       })
-    })
+    }).then(() => setFlag(false))
       .catch((error) => {
         if (error) {
           setUserInformation((prevState) => {

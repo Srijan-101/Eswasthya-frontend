@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import Message from '../../../../UserAuthentication/Helper/Message';
+import ViewImage from './ViewImage';
 
 const AI = () => {
 
@@ -29,7 +30,7 @@ const AI = () => {
         setLoading(true);
         const formData = new FormData();
         formData.append("image", selectedFile);
-        axiosInstance.post(`https://srijan-101-laughing-fishstick-w54qvqx5w99h5497-5000.preview.app.github.dev/predict`, formData)
+        axiosInstance.post(process.env.REACT_APP_AILINK, formData)
             .then((res) => {
                 setLoading(false);
                 setData(res?.data)
@@ -41,11 +42,16 @@ const AI = () => {
             })
     }
 
+    const openImage = () => {
+            let a = document.getElementById("ViewImage");
+            a.classList.remove("hidden");
+    }
+
 
     return (
         <>  
-          
-           {Data ?<img width="280px" src={Data?.processed_image_url}/> : null} 
+           <ViewImage Data={Data}/> 
+           {Data ?<img onClick={openImage} width="280px" src={Data?.processed_image_url}/> : null} 
 
            {Data?.prediction === 1 ? (<p className="pl-3 pr-3 break-words tracking-tight text-gray-500 text-sm">Analyzing the X-ray, our AI has predicted that the patient may have pneumonia.</p>) : null}
               

@@ -38,6 +38,8 @@ const ProvinceContextProvider = (props) => {
 
     useEffect(() => {
         setMunicipality([]);
+
+        //Drug
         if (optionControl.firstOp === "Drug" && optionControl.ThirdOp === null) {
             axios({
                 method: "GET",
@@ -58,9 +60,49 @@ const ProvinceContextProvider = (props) => {
                     'Authorization': `Bearer ${getStoredCookie("token")}`,
                 },
             }).then((res) => {
-                if (res.data.data) console.log(res.data.data)
+                if (res.data.data) setMunicipality(res?.data?.data?.municipalityList)
             }).catch((error) => console.log(error));
         }
+
+
+      //Disease
+        if (optionControl.firstOp === "Diseases" && optionControl.ThirdOp === null) {
+            axios({
+                method: "GET",
+                url: `${process.env.REACT_APP_API}api/dashboard/admin/get-disease-count-per-municipality-by-disease-type?districtId=${DistrictId}&diseaseType=${optionControl.SecondOp}`,
+                headers: {
+                    'Authorization': `Bearer ${getStoredCookie("token")}`,
+                },
+            }).then((res) => {
+                if (res.data.data) setMunicipality(res?.data?.data?.municipalityList)
+            }).catch((error) => console.log(error));
+        }
+
+        if (optionControl.firstOp === "Diseases" && optionControl.ThirdOp !== null) {
+            axios({
+                method: "GET",
+                url: `${process.env.REACT_APP_API}api/dashboard/admin/get-disease-count-per-municipality-by-disease-name?districtId=${DistrictId}&diseaseName=${optionControl.ThirdOp}`,
+                headers: {
+                    'Authorization': `Bearer ${getStoredCookie("token")}`,
+                },
+            }).then((res) => {
+                if (res.data.data) setMunicipality(res?.data?.data?.municipalityList)
+            }).catch((error) => console.log(error));
+        }
+
+        //Immunization
+        if (optionControl.firstOp === "Immunization" && optionControl.ThirdOp === null) {
+            axios({
+                method: "GET",
+                url: `${process.env.REACT_APP_API}api/dashboard/admin/get-vaccination-count-per-municipality?districtId=${DistrictId}&vaccineName=${optionControl.SecondOp}`,
+                headers: {
+                    'Authorization': `Bearer ${getStoredCookie("token")}`,
+                },
+            }).then((res) => {
+                if (res.data.data) setMunicipality(res?.data?.data?.municipalityList)
+            }).catch((error) => console.log(error));
+        }
+        
     },[DistrictId])
 
 
@@ -115,6 +157,8 @@ const ProvinceContextProvider = (props) => {
             }).catch((error) => console.log(error));
         }
 
+
+
         if (optionControl.firstOp === "Diseases" && optionControl.ThirdOp === null) {
             axios({
                 method: "GET",
@@ -136,6 +180,33 @@ const ProvinceContextProvider = (props) => {
                 },
             }).then((res) => {
                 if (res.data.data) setDistrictData(res.data.data)
+            }).catch((error) => console.log(error));
+        }
+
+
+        if (optionControl.firstOp === "Immunization" && optionControl.SecondOp !== null) {
+            axios({
+                method: "GET",
+                url: `${process.env.REACT_APP_API}api/dashboard/admin/get-vaccination-count-per-district?vaccineName=${optionControl.SecondOp}`,
+                headers: {
+                    'Authorization': `Bearer ${getStoredCookie("token")}`,
+                },
+            }).then((res) => {
+                if (res.data.data) {setDistrictData(res.data.data);}
+            }).catch((error) => console.log(error));
+        }
+
+
+
+        if (optionControl.firstOp === "Immunization" && optionControl.SecondOp !== null) {
+            axios({
+                method: "GET",
+                url: `${process.env.REACT_APP_API}api/dashboard/admin/get-vaccination-count-in-province?provinceId=${provinceId}&medicineName=${optionControl.SecondOp}`,
+                headers: {
+                    'Authorization': `Bearer ${getStoredCookie("token")}`,
+                },
+            }).then((res) => {
+                if (res.data.data) { console.log(res.data.data);setProvinceData(res.data.data) }
             }).catch((error) => console.log(error));
         }
 
@@ -194,7 +265,10 @@ const ProvinceContextProvider = (props) => {
                     'Authorization': `Bearer ${getStoredCookie("token")}`,
                 },
             }).then((res) => {
-                if (res.data.data) setSecondOptionvalue(res.data.data)
+                if (res.data.data) {
+                    setSecondOptionvalue(res.data.data)
+                    setThirdOptionvalue();
+                }
             }).catch((error) => console.log(error));
         } else if (e.target.value === "Diseases") {
             axios({
@@ -204,7 +278,24 @@ const ProvinceContextProvider = (props) => {
                     'Authorization': `Bearer ${getStoredCookie("token")}`,
                 },
             }).then((res) => {
-                if (res.data.data) setSecondOptionvalue(res.data.data)
+                if (res.data.data) {
+                    setSecondOptionvalue(res.data.data)
+                    setThirdOptionvalue();
+                }
+            }).catch((error) => console.log(error));
+        }else if (e.target.value === "Immunization"){
+            axios({
+                method: "GET",
+                url: `${process.env.REACT_APP_API}api/vaccination/get-vaccine-name-list`,
+                headers: {
+                    'Authorization': `Bearer ${getStoredCookie("token")}`,
+                },
+            }).then((res) => {
+                if (res.data.data) 
+                {
+                    setSecondOptionvalue(res.data.data)
+                    setThirdOptionvalue();
+                }
             }).catch((error) => console.log(error));
         }
     }
@@ -230,6 +321,20 @@ const ProvinceContextProvider = (props) => {
                 },
             }).then((res) => {
                 if (res.data.data) setThirdOptionvalue(res.data.data)
+            }).catch((error) => console.log(error));
+        }else if (e.target.value === "Immunization"){
+            axios({
+                method: "GET",
+                url: `${process.env.REACT_APP_API}api/vaccination/get-vaccine-name-list`,
+                headers: {
+                    'Authorization': `Bearer ${getStoredCookie("token")}`,
+                },
+            }).then((res) => {
+                if (res.data.data) 
+                {
+                    setSecondOptionvalue(res.data.data)
+                    setThirdOptionvalue();
+                }
             }).catch((error) => console.log(error));
         }
     }

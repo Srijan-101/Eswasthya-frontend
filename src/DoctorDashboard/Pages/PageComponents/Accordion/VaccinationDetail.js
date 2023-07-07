@@ -13,6 +13,7 @@ const VaccinationDetail = () => {
     const {Flag} = useContext(PatientDetailsContext)
 
     useEffect(() => {
+        setVaccinationData([]);
         axios({
             method: "GET",
             url: `${process.env.REACT_APP_API}api/vaccination/view-by-patient/${localStorage.getItem("patientId")}`,
@@ -25,9 +26,6 @@ const VaccinationDetail = () => {
             console.log(error);
         })
     }, [Flag])
-
-
-
 
 
 
@@ -47,7 +45,7 @@ const VaccinationDetail = () => {
                         <hr/>
                     </>
                     )
-                }) : <div class="pl-10 text-base mt-4 text-left font-semibold">No vaccination Data</div>
+                }) : <div class=" text-base mt-4 text-left font-semibold">No vaccination Data</div>
             }
         </div>
     )
