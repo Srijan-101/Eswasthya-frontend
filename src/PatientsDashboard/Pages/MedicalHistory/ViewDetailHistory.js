@@ -43,6 +43,8 @@ const ViewDetailHistory = () => {
                 setReports(res?.data?.data?.testResultList);
                 setDrug(res?.data?.data?.prescriptionList);
                 setAppointmentInformation({
+                    diseaseName : res?.data?.data?.diseaseName,
+                    doctorImage : res?.data?.data?.doctorDetail?.imagePath,
                     doctorName: res?.data?.data?.doctorDetail?.firstName + res?.data?.data?.doctorDetail?.lastName,
                     doctorSpecialization: res?.data?.data?.doctorDetail?.specialization,
                     Nmcno: res?.data?.data?.doctorDetail?.nmcLicenseNo,
@@ -108,7 +110,7 @@ const ViewDetailHistory = () => {
 
                                         <div class="flex items-center space-x-4">
                                             <div class="flex-shrink-0">
-                                                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-1.jpg" alt="Neil image" />
+                                                <img class="w-10 h-10 rounded-full" src={AppointmentInformation?.doctorImage} alt={AppointmentInformation?.doctorName} />
                                             </div>
                                             <div class="flex-1 min-w-0">
                                                 <p class="text-sm font-medium text-gray-900 truncate dark:text-white">

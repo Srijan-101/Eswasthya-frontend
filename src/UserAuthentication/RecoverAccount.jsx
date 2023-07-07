@@ -23,18 +23,22 @@ function RecoverAccount() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    console.log(values);
+    setValues((prevState) => ({
+      ...prevState,
+      loading: true,
+    }));
     try {
       setValues((prevState) => ({ ...prevState, loading: true }));
       const res = await axios.get( `${process.env.REACT_APP_API}api/user/reset-password-request/${values.email}`
       );
-      console.log(res);
       setValues((prevState) => ({
         ...prevState,
         message: res.data.message,
         loading: false,
         error: false,
+        email : ' '
       }));
+
     } catch (error) {
       console.log(error);
       setValues((prevState) => ({
@@ -70,12 +74,14 @@ function RecoverAccount() {
           </div>
 
           <div class="relative">
-            <input onChange={handleChange} name="email" type="email" id="email-address-icon" class=" placeholder-gray-300 0 border h-[50px] border-gray-300 text-gray-900 text-[15px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-3 p-2.5  " placeholder='Email'></input>
+            <input onChange={handleChange} value={values.email} name="email" type="email" id="email-address-icon" class=" placeholder-gray-300 0 border h-[50px] border-gray-300 text-gray-900 text-[15px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-3 p-2.5  " placeholder='Email'></input>
           </div>
           
           <div className='flex flex-col items-center'>
-            <button type="submit" className='sm:w-[520px] rounded-md w-[275px] text-center py-3 mt-8 font-bold  bg-[#42ADF0] hover:bg-[#4D6B9C] relative  text-white hover:bold'>
-              Send reset link
+            <button type="submit" disabled={values.loading} className='sm:w-[520px] rounded-md w-[275px] text-center py-3 mt-8 font-bold  bg-[#42ADF0] hover:bg-[#4D6B9C] relative  text-white hover:bold'>
+              {
+                  values.loading ?  "Loading...." : "Send reset link"
+                }
             </button>
           </div>
          

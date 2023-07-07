@@ -55,7 +55,7 @@ const MedicalHistory = () => {
 
 
     return (
-        <div className="w-full">
+        <div className="w-full h-screen">
              
             {
               History.length !== 0 ?  History.map((ele, key) => {
@@ -74,7 +74,7 @@ const MedicalHistory = () => {
                                         <div className="relative">
                                             <div class="flex items-center space-x-4">
                                                 <div class="flex-shrink-0">
-                                                    <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-1.jpg" alt="Neil image" />
+                                                    <img class="w-8 h-8 rounded-full" src={ele?.imagePath} alt={ele?.doctorFullName}/>
                                                 </div>
                                                 <div class="flex-1 min-w-0">
                                                     <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
@@ -92,7 +92,7 @@ const MedicalHistory = () => {
                                         <div className="relative">
                                        
                                             <label htmlfor="role" class="block mb-2 text-sm  text-gray-400 dark:text-white">Prescripted drugs</label>
-                                            <div className="grid grid-cols-2 gap-2">
+                                            <div className="grid grid-cols-3 gap-2">
                                             {
                                                 ele?.medicineName?.split(",").map((ele, key) => {
                                                     

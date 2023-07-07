@@ -64,6 +64,7 @@ const Appointment = () => {
                                 }
                             ]
                         })
+                       
                     })
                 })
             })
@@ -158,7 +159,7 @@ const Appointment = () => {
                                 return (
                                     <tr key={key} class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <th scope="row" class="flex items-center px-6 py-8 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <img class="w-10 h-10 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="Jese image" />
+                                            <img class="w-10 h-10 rounded-full" src={ele?.imagePath} alt={ele?.doctorName} />
                                             <div class="pl-3">
                                                 <div class="text-base font-semibold">Dr.{ele?.doctorName}</div>
                                                 <div class="font-normal text-gray-500">{ele?.specialization},{ele?.education}</div>

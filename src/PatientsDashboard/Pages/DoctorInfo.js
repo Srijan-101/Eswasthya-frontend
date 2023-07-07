@@ -36,9 +36,10 @@ const DoctorInfo = () => {
    
 
    
-
+    console.log(DoctorInfo)
 
     return (
+        
         <>
        
         <div className='h-screen'>
@@ -51,7 +52,7 @@ const DoctorInfo = () => {
 
                     <div className="grid grid-cols-2 pl-5 pr-5 mt-2 grid-flow-col ">
                         <div className="info p-1 pb-3 row-span-2">
-                            <img class="md:w-32 md:h-32  w-20 h-20 rounded-full shadow-lg" src="https://demo.midas.com.np/uploads/dr_atit_poudel-removebg-preview.png" alt="Bonnie image" />
+                            <img class="md:w-32 md:h-32  w-20 h-20 rounded-full shadow-lg" src={DoctorInfo.imagePath} alt="Bonnie image" />
                         </div>
                         <div className="info p-1">
                             <span class="block">Dr.{DoctorInfo.firstName} {DoctorInfo.lastName}</span>
@@ -92,7 +93,7 @@ const DoctorInfo = () => {
                             <span class="text-gray-900">+977-{DoctorInfo.phoneNumber}</span>
                         </div>
                         <div className="info p-1">
-                            <h1 class="text-gray-500" >Location</h1>
+                            <h1 class="text-gray-500" >Permanent address</h1>
                             <span class="text-gray-900">Manbhawan,lalitpur</span>
                         </div>
                     </div>

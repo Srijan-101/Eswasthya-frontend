@@ -73,7 +73,7 @@ function Verify() {
 
             <div className='grid grid-cols-1 sm:grid-cols-2 sm:gap-5'>
               <button type="submit" className='sm:w-auto rounded-md w-auto text-center py-3 mt-8 font-bold  bg-[#42ADF0] hover:bg-[#4D6B9C] relative  text-white hover:bold'>
-                Resend verification link
+                 {values.loading ?  "Loading...." : "Resend verification link"}
               </button>
               <button onClick={Logout} className='sm:w-auto rounded-md w-auto text-center py-3 mt-8 font-bold  bg-[#42ADF0] hover:bg-[#4D6B9C] relative  text-white hover:bold'>
                 Log out

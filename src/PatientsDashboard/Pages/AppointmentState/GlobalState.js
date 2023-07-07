@@ -75,15 +75,14 @@ const AppointmentContextProvider = (props) => {
     }
 
     const Onconfirm = () => {
-
         axios({
             method: "POST",
             data: {
                 reasonForVisit: AppointmentData.reasonForVisit,
                 appointmentDate: new Date(AppointmentData.appointmentDate),
                 appointmentTime: AppointmentData.appointmentTime,
-                hospitalId: AppointmentData.HospitalId,
-                patientDetailId: getProperty('patientId'),
+                hospitalId: !AppointmentData.HospitalId ? document.getElementById("HospitalName").value : AppointmentData.HospitalId ,
+                patientDetailId:localStorage.getItem("patientId"),
                 doctorDetailId: id
             },
             url: `${process.env.REACT_APP_API}api/appointment/save`,

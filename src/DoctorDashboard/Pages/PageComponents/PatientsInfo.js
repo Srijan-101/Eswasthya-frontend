@@ -12,9 +12,6 @@ const PatientsInfo = () => {
 
     const { DoctorInformation, PatientsData } = useContext(DoctorContext);
     let HospitalList = DoctorInformation?.hospitalNames?.split(",");
-
-
-
     return (
         <div className="w-full h-max bg-metal mx-auto grid lg:grid-rows-2 lg:grid-flow-col gap-2 md:grid-col-1">
             <div className="lg:row-span-2 lg:w-[450px] rounded-sm  border-[2px] border-[#f8f8f8] bg-white shadow-xl">
@@ -24,7 +21,7 @@ const PatientsInfo = () => {
 
                 <div className="grid grid-cols-2 pl-5 pr-5 mt-2 grid-flow-col ">
                     <div className="info p-1 pb-3 row-span-2">
-                        <img class="md:w-36 md:h-36  w-20 h-20  rounded-full shadow-lg" src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="Bonnie image" />
+                        <img class="md:w-36 md:h-36  w-20 h-20  rounded-full shadow-lg" src={DoctorInformation?.imagePath} alt={DoctorInformation?.firstName}/>
                     </div>
                     <div className="info p-1">
                         <span class="block">Dr.{DoctorInformation.firstName} {DoctorInformation.lastName}</span>
@@ -128,7 +125,7 @@ const PatientsInfo = () => {
                                             <tr key={key} class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
                                                 <td className='py-3'>
                                                     <div class="flex items-center space-x-4">
-                                                        <img class="w-10 h-10 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="" />
+                                                        <img class="w-10 h-10 rounded-full" src={ele?.imagePath} alt={ele?.patientName} />
                                                         <div class="font-medium dark:text-white">
                                                             <div>{ele.patientName}</div>
                                                             <div class="text-sm text-gray-500 dark:text-gray-400">{ele.age} years, {ele.gender}</div>

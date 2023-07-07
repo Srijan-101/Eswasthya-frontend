@@ -4,17 +4,18 @@ import { MdVaccines } from 'react-icons/md'
 import { FaWeight } from 'react-icons/fa'
 
 import { AuthContext } from '../../../Store/UserState'
-import { useContext,useState ,useEffect} from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { PatientContext } from '../../PatientGlobalState'
 import axios from 'axios';
+import { Link } from 'react-router-dom'
 
 
 const PatientsInfo = () => {
-     const {userInformation,getProperty} = useContext(PatientContext)
-     
-     return (
-       
-        <div className="w-full h-max bg-metal mx-auto grid lg:grid-rows-2 lg:grid-flow-col gap-2 md:grid-col-1">
+    const { userInformation,Diagonsis,loading, Medication, getProperty, AllergicDrug } = useContext(PatientContext);
+
+    return (
+
+        <div className="w-full h-max h-screen bg-metal mx-auto grid lg:grid-rows-2 lg:grid-flow-col gap-2 md:grid-col-1">
             <div className="lg:row-span-2 rounded-sm  border-[2px] border-[#f8f8f8] bg-white shadow-xl">
                 <div className="info flex items-center bg-eswasthyaprim text-white p-3">
                     <span className='text-2xl mr-2'><BsFillPersonVcardFill /></span> General information
@@ -22,7 +23,7 @@ const PatientsInfo = () => {
 
                 <div className="grid grid-cols-2 pl-5 pr-5 mt-2 grid-flow-col ">
                     <div className="info p-1 pb-3 row-span-2">
-                        <img class="lg:w-40 lg:h-40 w-15 h-15 rounded-full shadow-lg" src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="Bonnie image" />
+                        <img class="lg:w-40 lg:h-40 w-15 h-15 rounded-full shadow-lg" src={userInformation.imagePath} alt={userInformation.firstName} />
                     </div>
                     <div className="info p-1">
                         <span class="block">{userInformation.firstName} {userInformation.lastName}</span>
@@ -65,71 +66,27 @@ const PatientsInfo = () => {
                     </div>
                 </div>
                 <div className="info mt-3 flex items-center bg-eswasthyaprim text-white p-3">
-                    <span className='text-2xl mr-2'><BsFillPersonVcardFill /></span> Allergies
+                    <span className='text-2xl mr-2'><BsFillPersonVcardFill /></span> Allergic drugs
                 </div>
+                <div class="relative m-4 p-2">
+                    <div className='grid grid-cols-3 gap-3'>
 
-                <div class="relative">
-                    <table class="w-full text-sm text-left text-gray-500 ">
-                        <thead class="text-sm text-gray-400 ">
-                            <tr>
-                                <th scope="col" class="px-6 py-3">
-                                    Drug Allergies
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                           
-                           
-             
-                            <tr class="bg-white">
-                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    <div class="flex">
-                                        Clindamycin <div className="h-4 w-4 ml-4 rounded-full bg-[#dd5a09]"></div>
-                                    </div>
-
-                                </td>
-                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    <div class="flex">
-                                        Clindamycin <div className="h-4 w-4 ml-4 rounded-full bg-[#dd5a09]"></div>
-                                    </div>
-
-                                </td>
-                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    <div class="flex">
-                                        Clindamycin <div className="h-4 w-4 ml-4 rounded-full bg-[#dd5a09]"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="bg-white">
-                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    <div class="flex">
-                                        Clindamycin <div className="h-4 w-4 ml-4 rounded-full bg-[#dd5a09]"></div>
-                                    </div>
-
-                                </td>
-                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    <div class="flex">
-                                        Clindamycin <div className="h-4 w-4 ml-4 rounded-full bg-[#dd5a09]"></div>
-                                    </div>
-
-                                </td>
-                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    <div class="flex">
-                                        Clindamycin <div className="h-4 w-4 ml-4 rounded-full bg-[#dd5a09]"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                
-                        </tbody>
-                    </table>
-                    <hr/>
-                    <div className='flex justify-center gap-5 py-4'>
-                            <span className="h-4 w-4 rounded-full  bg-[#dd5a09]"/>Severe
-                            <span className="h-4 w-4 rounded-full bg-[#eaab1e]"/>Moderate
-                            <span className="h-4 w-4  rounded-full bg-[#f6ddbf]"/>Mild
+                        {
+                            AllergicDrug.length !== 0 ? AllergicDrug.map((ele, key) => {
+                                return (
+                                    <button
+                                        key={key}
+                                        type="button"
+                                        disabled="true"
+                                        className="px-5 py-2 text-sm rounded-md text-white bg-[#42ADF0]"
+                                    >
+                                        {ele}
+                                    </button>
+                                )
+                            }) : <div class="text-base mt-2 text-left font-semibold">No allergic drug data</div>
+                        }
                     </div>
                 </div>
-
             </div>
             <div className="lg:col-span-12 rounded-sm border-[2px] border-[#f8f8f8] bg-white shadow-xl ">
                 <div className="info flex items-center bg-eswasthyaprim text-white p-3">
@@ -139,88 +96,58 @@ const PatientsInfo = () => {
                     <table className="mt-4">
                         <thead>
                             <tr className='text-left'>
-                                <th>Generic Name</th>
-                                <th >Type</th>
+                                <th>Medication Name</th>
                                 <th>Strength</th>
+                                <th>Duration</th>
                                 <th>Date</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td className='py-3'>Azithromycin</td>
-                                <td>Antibiotics</td>
-                                <td>500 Mg</td>
-                                <td className='text-xs'>2023/02/22 - 2023/02/22</td>
-                                <td><button type="button" class=" py-2 text-sm w-[90px] font-medium text-center text-white bg-blue-400 rounded-lg  focus:outline-none">Active</button></td>
-                            </tr>
-                            <tr>
-                                <td className='py-3'>Isotretinoin</td>
-                                <td>Retinoids</td>
-                                <td>10 Mg</td>
-                                <td className='text-xs'>2023/02/22 - 2023/02/22</td>
-                                <td><button type="button" class="py-2 text-sm w-[90px] font-medium text-center text-blue-300 border-2 border-blue-300 bg-white rounded-lg  focus:outline-none">Completed</button></td>
-                            </tr>
-                            <tr>
-                                <td className='py-3'>Amoxicillin</td>
-                                <td>Antibiotics</td>
-                                <td>20 Mg</td>
-                                <td className='text-xs'>2023/02/22 - 2023/02/22</td>
-                                <td><button type="button" class="py-2 text-sm w-[90px] font-medium text-center text-blue-300 border-2 border-blue-300 bg-white rounded-lg  focus:outline-none">Completed</button></td>
-                            </tr>
-                            <tr>
-                                <td className='py-3'>Clindamycin</td>
-                                <td>Antibiotics</td>
-                                <td>50 Mg</td>
-                                <td className='text-xs'>2023/02/22 - 2023/02/22</td>
-                                <td><button type="button" class="py-2 text-sm w-[90px] font-medium text-center text-blue-300 border-2 border-blue-300 bg-white rounded-lg  focus:outline-none">Completed</button></td>
-                            </tr>
+                            {
+                                !loading ? Medication?.map((ele, key) => {
+                                    return (
+                                        <tr>
+                                            <td className='py-3'>{ele.medicineName}</td>
+                                            <td>{ele.dosageInUnit} Mg</td>
+                                            <td>{ele.durationInDays} Days</td>
+                                            <td className='text-xs'>{ele.startDate} - {ele.endDate}</td>
+                                            <td><button type="button" class=" py-2 text-sm w-[90px] font-medium text-center text-white bg-blue-400 rounded-lg  focus:outline-none">Active</button></td>
+                                        </tr>
+                                    )
+                                }) : null
+                            }
+
                         </tbody>
                     </table>
                 </div>
             </div>
             <div className="lg:col-span-12 rounded-sm border-[2px] border-[#f8f8f8] bg-white shadow-xl">
                 <div className="info flex items-center bg-eswasthyaprim text-white p-3">
-                    <span className='text-2xl mr-2'><MdVaccines /></span>Diagnoses
+                    <span className='text-2xl mr-2'><MdVaccines /></span>Recent Diagnosis
                 </div>
                 <table class="w-full text-sm text-left text-gray-500 ">
-                        <thead class="text-sm text-gray-400 border-t">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 text-lg">
-                                    Chronic Diagnoses
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-lg">
-                                    Acute Diagnoses
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="bg-white ">
-                                <td class="px-6 py-2 font-medium text-gray-900">
-                                     Diabetes
-                                </td>
-                                <td class="px-6 py-2 font-medium text-gray-900">
-                                      Broken bone
-                                </td> 
-                            </tr>
-                            <tr class="bg-white">
-                                <td class="px-6 py-2  font-medium text-gray-900">
-                                     Hypertension
-                                </td>
-                                <td class="px-6 py-2 font-medium text-gray-900">
-                                      Bronchitis
-                                </td> 
-                            </tr>
-                            <tr class="bg-white">
-                                <td class="px-6 py-2 font-medium text-gray-900">
-                                     Reumathoid arthritis
-                                </td>
-                                <td class="px-6 py-2 font-medium text-gray-900">
-                                      Respiratory infection
-                                </td> 
-                            </tr>
-                        </tbody>
-                    </table>
+                    <thead class="text-sm text-gray-400 border-t">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-lg">
+                                Diagnoses
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            Diagonsis?.resData?.map((ele, key) => {
+                                return (
+                                    <tr class="bg-white " key={key}> 
+                                        <td class="px-6 py-2 font-medium text-gray-900">
+                                            <Link to={`../viewMedicalDetails/${ele.appointmentId}`}>{ele.diseaseName}</Link>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     )

@@ -39,9 +39,12 @@ const ViewMedical = () => {
             },
         })
             .then((res) => {
+          
                 setReports(res?.data?.data?.testResultList);
                 setDrug(res?.data?.data?.prescriptionList);
                 setAppointmentInformation({
+                    diseaseName : res?.data?.data?.diseaseName,
+                    doctorImage : res?.data?.data?.doctorDetail?.imagePath,
                     doctorName: res?.data?.data?.doctorDetail?.firstName + res?.data?.data?.doctorDetail?.lastName,
                     doctorSpecialization: res?.data?.data?.doctorDetail?.specialization,
                     Nmcno: res?.data?.data?.doctorDetail?.nmcLicenseNo,
@@ -67,8 +70,7 @@ const ViewMedical = () => {
                 </div>
             </button>
 
-
-            <div className="w-full bg-metal mx-auto grid lg:grid-rows-2 lg:grid-flow-col gap-2 md:grid-col-1">
+            <div className="w-full h-screen bg-metal mx-auto grid lg:grid-rows-2 lg:grid-flow-col gap-2 md:grid-col-1">
                 <div className="lg:row-span-2  h-max rounded-sm border-[2px] border-[#f8f8f8] bg-white shadow-xl ">
                     <div className="info flex items-center bg-eswasthyaprim text-white p-3">
                         <span className='text-2xl mr-2'><RiMedicineBottleFill /></span> General Information
@@ -77,7 +79,7 @@ const ViewMedical = () => {
                     <div className=' grid md:grid-cols-1 sm:grid-cols-1  lg:grid-cols-2'>
                         <div className='p-5'>
                             <p class="text-xl p-3 font-medium text-gray-900 truncate dark:text-white">
-                                Diagonsis : Allergic Rhinitis
+                                Diagonsis : {AppointmentInformation?.diseaseName}
                             </p>
                             <div class="w-3/2 p-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
 
@@ -108,7 +110,7 @@ const ViewMedical = () => {
 
                                         <div class="flex items-center space-x-4">
                                             <div class="flex-shrink-0">
-                                                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-1.jpg" alt="Neil image" />
+                                                <img class="w-12 h-12 rounded-full" src={AppointmentInformation?.doctorImage} alt={AppointmentInformation?.doctorName} />
                                             </div>
                                             <div class="flex-1 min-w-0">
                                                 <p class="text-sm font-medium text-gray-900 truncate dark:text-white">

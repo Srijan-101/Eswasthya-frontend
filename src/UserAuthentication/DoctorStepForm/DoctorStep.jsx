@@ -12,6 +12,8 @@ import { useContext } from "react";
 import { FormContext } from "./components/formState/State";
 import Message from "../Helper/Message"
 import DoctorInformation from "./components/DoctorInformation";
+import { AuthContext } from "../../Store/UserState";
+
 
 
 
@@ -19,6 +21,7 @@ import DoctorInformation from "./components/DoctorInformation";
 function User() {
 
   const { formNo, formArray, next, prev, onSubmit, Userinformation } = useContext(FormContext);
+  const {isAuth}= useContext(AuthContext)
 
 
 
@@ -80,7 +83,7 @@ function User() {
             </div>
             <div className="items-center mb-2">
               <h2 className="sm:text-[35px] text-[25px]  font-medium sm:pt-1  text-gray-600">
-                Welcome Srijan,
+                Welcome {`${isAuth().email}`},
               </h2>
               <h6 className="sm:text-[17px] text-[15px] pb-4 text-gray-400">
                 you are one step closer to eswasthya platform.

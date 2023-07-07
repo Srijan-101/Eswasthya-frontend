@@ -9,6 +9,9 @@ const PatientDetailsContextProvider = (props) => {
     const { AppointmentId } = useParams();
     const [patientsInformation, setPatientsInformation] = useState();
     const { getStoredCookie } = useContext(AuthContext)
+    
+    const [Flag,setFlag] = useState(false)
+    const [allergicFlag,setAllergicFlag] = useState(false);
 
     useEffect(() => {
         axios({
@@ -33,15 +36,39 @@ const PatientDetailsContextProvider = (props) => {
                     setPatientsInformation((prevState) => {
                          return {...prevState ,AppointmentId,AppointmentDetails}
                     })
+                    localStorage.setItem('patientId',AppointmentDetails?.patientId);
                  })
                 .catch((error) => console.log(error))
             })
             .catch((error) => console.log(error))
-    }, [])
+    }, [Flag])
+
+
+    const [Main, setMain] = useState([]);
+
+    useEffect(() => {
+        setMain([])
+        axios({
+            method: "GET",
+            url: `${process.env.REACT_APP_API}api/allergic-medicine/list?patientId=${localStorage.getItem('patientId')}`,
+            headers: {
+                'Authorization': `Bearer ${getStoredCookie("token")}`,
+            },
+        })
+            .then((res) => {
+                res?.data?.data.map((ele) => {
+                    setMain((prevState) => {
+                        return [...prevState, ele?.allergicMedicineName]
+                    })
+                })
+            })
+            .catch((error) => console.log(error))
+    }, [allergicFlag])
+
 
     return (
         <PatientDetailsContext.Provider
-            value={{patientsInformation}}
+            value={{patientsInformation,setFlag,Flag,Main,allergicFlag,setAllergicFlag}}
         >
             {props.children}
         </PatientDetailsContext.Provider>

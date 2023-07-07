@@ -3,15 +3,18 @@ import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../../../../Store/UserState";
 import Message from '../../../../UserAuthentication/Helper/Message'
+import { PatientDetailsContext } from "../../PatientsDetailsState/PatientDetailContext";
 
 
-
-const Immunization = ({ patientsInformation }) => {
+const Immunization = () => {
     const { getStoredCookie } = useContext(AuthContext)
+
+    const {setFlag,Flag} = useContext(PatientDetailsContext)
+
     const [VaccType, setVaccType] = useState([]);
     const [Data, setData] = useState({});
-    const [status,setStatus] = useState({
-          message : "",
+    const [status, setStatus] = useState({
+        message: "",
     })
 
 
@@ -33,7 +36,7 @@ const Immunization = ({ patientsInformation }) => {
         })
     }
 
-    console.log(patientsInformation);
+
 
     const onAdd = () => {
 
@@ -54,26 +57,30 @@ const Immunization = ({ patientsInformation }) => {
                 vaccineName: Data.vaccineName,
                 dosage: Data.dosage,
                 vaccinationDate: formattedDate,
-                patientId: patientsInformation?.AppointmentDetails?.patientId
+                patientId: localStorage.getItem('patientId')
             }
         })
-        .then((res) => setStatus({
-              message : res?.data?.message,
-              error : false
-        }))
-        .catch((error) =>   {
-            setStatus({
-                message : error?.data?.message,
-                error : true
-          })
-        });
+            .then((res) => {setStatus({
+                message: res?.data?.message,
+                error: false
+            }) ; setFlag(Flag ? false : true)})
+            .catch((error) => {
+                setStatus({
+                    message: error?.data?.message,
+                    error: true
+                })
+            });
+            setTimeout(() => {
+                setStatus({
+                     message : ''
+                })
+          },2000)
     }
 
     const onClose = () => {
         let a = document.getElementById("vaccineModal");
         a.classList.add("hidden");
     }
-
 
     return (
         <div
@@ -115,7 +122,10 @@ const Immunization = ({ patientsInformation }) => {
                     </div>
 
                     <div class="p-6 m-6">
-                         {status.message || status?.error ? <Message message={status?.message} error={status?.error}/> : null } 
+                        {
+
+                            status.message || status?.error ? setTimeout(() => { <Message message={status?.message} error={status?.error} /> }, 2000) : null
+                        }
                         <div className="grid lg:grid-cols-2 sm:grid-cols-1 gap-4">
 
                             <div className="relative">

@@ -73,7 +73,7 @@ function User() {
             </div>
             <div className="items-center mb-2">
               <h2 className="sm:text-[35px] text-[25px]  font-medium sm:pt-1  text-gray-600">
-                Welcome {isAuth().firstName},
+                Welcome {isAuth().email},
               </h2>
               <h6 className="sm:text-[17px] text-[15px] pb-4 text-gray-400">
                 you are one step closer to eswasthya platform.
