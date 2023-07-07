@@ -15,6 +15,13 @@ const Userinformation = () => {
         setUserInformation((prevstate) => {return {...prevstate,Age:differenceInYears(new Date(),new Date(prevstate.DOB),)}})
     }
 
+    var currentDate = new Date();
+    currentDate.setMonth(currentDate.getMonth() - 300);
+    var year = currentDate.getFullYear();
+    var month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
+    var day = ("0" + currentDate.getDate()).slice(-2);
+    var formattedDate = year + "-" + month + "-" + day;
+
 
     return (
         <div className="mt-6 pb-3">
@@ -24,6 +31,7 @@ const Userinformation = () => {
                         <h1 className='sm:text-[15px] text-[12px] pb-2 relative text-gray-400'>Enter your DOB</h1>
                         <input
                             value={Userinformation.DOB}
+                            max={formattedDate}
                             onChange={onChangeEvent("DOB")}
                             type="date"
                             id="dob"

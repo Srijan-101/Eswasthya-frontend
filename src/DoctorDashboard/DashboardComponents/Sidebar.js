@@ -7,6 +7,7 @@ import {BsThermometerSun} from 'react-icons/bs'
 import {TbLogout} from 'react-icons/tb'
 import {FaHospitalUser} from 'react-icons/fa'
 import Logo from "./Logo"
+import { useNavigate } from "react-router-dom"
 import { AuthContext } from "../../Store/UserState"
 
 
@@ -21,12 +22,15 @@ const Sidebar = () => {
         { title: 'Patients',path:'/Patients' ,function:false  ,src:<FaHospitalUser/> },
         { title: 'Logout',function:true,src:<TbLogout/> }
     ]
+    const naviagte = useNavigate();
 
     const Logout = async () => {
         onLogout()
+        naviagte("/")
         window.location.reload();
     } 
 
+    
     return (
         <>  
           

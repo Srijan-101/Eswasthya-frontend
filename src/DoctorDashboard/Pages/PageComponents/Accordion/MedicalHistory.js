@@ -17,6 +17,7 @@ const MedicalHistory = () => {
 
 
     useEffect(() => {
+        SetHistory([]);
         axios({
             method: "GET",
             url: `${process.env.REACT_APP_API}api/diagnosis/list-by-patient/${patientsInformation?.patientId}`,
@@ -120,7 +121,7 @@ const MedicalHistory = () => {
                                         <div className="relative">
                                             <div class="flex items-center space-x-4">
                                                 <div class="flex-shrink-0">
-                                                    <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-1.jpg" alt="Neil image" />
+                                                    <img class="w-10 h-10 rounded-full" src={ele?.imagePath} alt={ele?.doctorFullName} />
                                                 </div>
                                                 <div class="flex-1 min-w-0">
                                                     <p class="text-sm font-medium text-gray-900 truncate dark:text-white">

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../../../../Store/UserState"
 import { useNavigate } from "react-router-dom"; 
@@ -46,44 +46,46 @@ const FormContextProvider = (props) => {
     },
   });
 
-
-  const PostData = () => {
-
-    axios({
-      method: "POST",
-      url: `${process.env.REACT_APP_API}api/patient/save`,
-      headers: {
-        'Authorization': `Bearer ${getStoredCookie("token")}`,
-      },
-      data: {
-        userId: isAuth().userId,
-        citizenshipNo: Userinformation.citizenshipValue,
-        phoneNumber: Userinformation.phonenumber,
-        weight: Userinformation.weight,
-        height: Userinformation.height,
-        gender: Userinformation.gender,
-        bloodGroup: Userinformation.bloodGroup,
-        imagePath: Userinformation.imageUrl,
-        municipalityId: parseInt(Userinformation.location.Locationid),
-        streetAddress: Userinformation.location.Address,
-        dateOfBirth: Userinformation.DOB
-      }
-    }).then((res) => {
-      setUserInformation((prevState) => {
-        return { ...prevState, message: "User information saved sucessfully!", loading: false, error: false }
-      })
-      setUserInformation((prevState) => { return { ...prevState, loading: false } })
-      onLogin(res);
-      navitage("/");
-    })
-      .catch(error => {
-        console.log(error);
+  useEffect(() => {
+    if(Userinformation.imageUrl.length !== 0) {
+      axios({
+        method: "POST",
+        url: `${process.env.REACT_APP_API}api/patient/save`,
+        headers: {
+          'Authorization': `Bearer ${getStoredCookie("token")}`,
+        },
+        data: {
+          userId: isAuth().userId,
+          citizenshipNo: Userinformation.citizenshipValue,
+          phoneNumber: Userinformation.phonenumber,
+          weight: Userinformation.weight,
+          height: Userinformation.height,
+          gender: Userinformation.gender,
+          bloodGroup: Userinformation.bloodGroup,
+          imagePath: Userinformation.imageUrl,
+          municipalityId: parseInt(Userinformation.location.Locationid),
+          streetAddress: Userinformation.location.Address,
+          dateOfBirth: Userinformation.DOB
+        }
+      }).then((res) => {
         setUserInformation((prevState) => {
-          return { ...prevState, message: error?.response?.data?.data[0], error: true }
+          return { ...prevState, message: "User information saved sucessfully!", loading: false, error: false }
         })
         setUserInformation((prevState) => { return { ...prevState, loading: false } })
-      });
-  }
+        onLogin(res);
+        navitage("/");
+      })
+        .catch(error => {
+          console.log(error);
+          setUserInformation((prevState) => {
+            return { ...prevState, message: error?.response?.data?.data[0], error: true }
+          })
+          setUserInformation((prevState) => { return { ...prevState, loading: false } })
+        });
+    }
+
+  },[Userinformation])
+
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -101,7 +103,7 @@ const FormContextProvider = (props) => {
       setUserInformation((prevState) => {
         return { ...prevState, imageUrl: res?.data?.url }
       })
-    }).then(() => PostData())
+    })
       .catch((error) => {
         if (error) {
           setUserInformation((prevState) => {

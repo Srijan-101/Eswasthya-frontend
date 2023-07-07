@@ -4,16 +4,28 @@ import { FormContext } from "./formState/State";
 
 
 const Userinformation = () => {
-     
 
-     const { Userinformation, setUserInformation} = useContext(FormContext)
-    
+
+    const { Userinformation, setUserInformation } = useContext(FormContext)
+
     const onChangeEvent = name => event => {
         setUserInformation((preState) => {
-            return { ...preState, [name]: event.target.value}
+            return { ...preState, [name]: event.target.value }
         })
-        setUserInformation((prevstate) => {return {...prevstate,Age:differenceInYears(new Date(),new Date(prevstate.DOB),)}})
+        setUserInformation((prevstate) => { return { ...prevstate, Age: differenceInYears(new Date(), new Date(prevstate.DOB),) } })
     }
+
+    var currentDate = new Date();
+
+    // Subtract 6 months from the current date
+    currentDate.setMonth(currentDate.getMonth() - 12);
+
+    // Format the date as "YYYY-MM-DD"
+    var year = currentDate.getFullYear();
+    var month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
+    var day = ("0" + currentDate.getDate()).slice(-2);
+    var formattedDate = year + "-" + month + "-" + day;
+
 
 
     return (
@@ -25,6 +37,8 @@ const Userinformation = () => {
                         <input
                             value={Userinformation.DOB}
                             onChange={onChangeEvent("DOB")}
+                            min='1899-01-01'
+                            max={formattedDate}
                             type="date"
                             id="dob"
                             className="border w-full border-gray-300 p-2 rounded-lg focus:ring-blue-500 focus:border-blue-500"
@@ -92,10 +106,10 @@ const Userinformation = () => {
                 <div className=' text-left  text-gray-400 '>
                     <h1 className='sm:text-[15px] text-[12px] pb-2 relative text-gray-400'>Choose your gender</h1>
                     <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                        
+
                         <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                             <div class="flex items-center pl-3">
-                                <input checked={Userinformation.gender === "Male"} onChange={onChangeEvent("gender")} value="Male" id="horizontal-list-radio-id" type="radio"  name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                <input checked={Userinformation.gender === "Male"} onChange={onChangeEvent("gender")} value="Male" id="horizontal-list-radio-id" type="radio" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
                                 <label for="horizontal-list-radio-id" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Male</label>
                             </div>
                         </li>
@@ -107,7 +121,7 @@ const Userinformation = () => {
                         </li>
                         <li class="w-full dark:border-gray-600">
                             <div class="flex items-center pl-3">
-                                <input checked={Userinformation.gender === "Other"} onChange={onChangeEvent("gender")} value="Other" id="horizontal-list-radio-passport" type="radio"  name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                <input checked={Userinformation.gender === "Other"} onChange={onChangeEvent("gender")} value="Other" id="horizontal-list-radio-passport" type="radio" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
                                 <label for="horizontal-list-radio-passport" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Other</label>
                             </div>
                         </li>

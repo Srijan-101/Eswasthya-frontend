@@ -1,8 +1,21 @@
 import { useState } from 'react';
 import ver from '../assets/ver.svg'
 
+import {useNavigate} from "react-router-dom"
+import { useContext } from 'react';
+import { AuthContext } from '../Store/UserState';
+
+
 
 function Verified() {
+  const navigate = useNavigate();
+  const {onLogout} = useContext(AuthContext)
+
+  setTimeout(() => {
+      onLogout();
+      navigate("/")
+  },2000)
+  
   return (
     <>
       <div className='h-screen flex  flex-col justify-center items-center bg-[#FFFFF] '>

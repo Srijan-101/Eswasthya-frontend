@@ -19,6 +19,7 @@ import { PatientsRoutes } from "../PatientsDashboard/PatientsRoutes"
 import { useContext } from "react";
 import { AuthContext } from "../Store/UserState";
 import { AdminRoutes } from "../AdminDashboard/AdminRoutes";
+import VerifyFinalize from "../UserAuthentication/VerifyFinalize";
 
 
 const IndexRoute = () => {
@@ -76,7 +77,11 @@ const IndexRoute = () => {
       </Route>
 
       <Route element={<PublicRoute restriction={true} />}>
-        <Route path="/ResetPassword" element={<ResetPassword />} />
+        <Route path="/verifyresetpasswordlink/:userId/:Link" element={<ResetPassword />} />
+      </Route>
+
+      <Route element={<PublicRoute restriction={true} />}>
+        <Route path="/VerifyAccountLink/:userId/:Link" element={<VerifyFinalize/>} />
       </Route>
 
       <Route element={<PublicRoute restriction={true} />}>

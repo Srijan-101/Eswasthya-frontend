@@ -1,5 +1,5 @@
 import { useState,useContext } from "react"
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation ,useNavigate} from 'react-router-dom'
 
 import {BsArrowLeftCircle} from 'react-icons/bs'
 import {AiFillHome} from 'react-icons/ai'
@@ -25,8 +25,11 @@ const Sidebar = () => {
         { title: 'Logout', function:true ,src:<TbLogout/> }
     ]
 
+    const naviagte = useNavigate();
+
     const Logout = async () => {
         onLogout()
+        naviagte("/")
         window.location.reload();
     } 
 

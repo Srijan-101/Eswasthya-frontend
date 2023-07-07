@@ -74,15 +74,15 @@ const DashBoardContextProvider = (props) => {
             }).catch((error) => console.log(error));
         }
 
-        if (optionControl.firstOp === "Immunization" && optionControl.ThirdOp !== null) {
+        if (optionControl.firstOp === "Immunization" && optionControl.SecondOp !== null) {
             axios({
                 method: "GET",
-                url: `${process.env.REACT_APP_API}api/dashboard/admin/get-vaccination-count-per-district?vaccineName=Polio${optionControl.ThirdOp}`,
+                url: `${process.env.REACT_APP_API}api/dashboard/admin/get-vaccination-count-per-district?vaccineName=${optionControl.SecondOp}`,
                 headers: {
                     'Authorization': `Bearer ${getStoredCookie("token")}`,
                 },
             }).then((res) => {
-                if (res.data.data) setDistrictData(res.data.data)
+                if (res.data.data) {setDistrictData(res.data.data);}
             }).catch((error) => console.log(error));
         }
 
