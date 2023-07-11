@@ -11,6 +11,9 @@ Some salient features of this project are:
 
 ![screencapture-localhost-3000-Appointments-2023-07-11-16_41_04](https://github.com/Srijan-101/Eswasthya-frontend/assets/59310528/fc0853a1-d204-4e78-8f31-5b15c7cb51ae)
 
+
+![screencapture-localhost-3000-home-2023-07-11-16_37_22](https://github.com/Srijan-101/Eswasthya-frontend/assets/59310528/12671c3b-2de4-48b0-b116-dc7820d1c06d)
+
 ![screencapture-localhost-3000-patientsInfo-109-2023-06-29-15_44_17](https://github.com/Srijan-101/Eswasthya-frontend/assets/59310528/507fb5dd-8d41-4b97-a1cd-164318a238fd)
 
 ![screencapture-localhost-3000-AddMedicalHistory-54-2023-07-04-22_24_32](https://github.com/Srijan-101/Eswasthya-frontend/assets/59310528/4ded9af5-38ab-4ce6-a182-5200713831c0)
