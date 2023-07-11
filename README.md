@@ -1,4 +1,4 @@
-##"Ewasthya" is a prototype of an Electronic Health Record (EHR) system aimed at digitizing health information. The application targets the government, enabling them to track the health data of individual citizens with a unique health ID while supporting demographic visualization of the data.
+"Ewasthya" is a prototype of an Electronic Health Record (EHR) system aimed at digitizing health information. The application targets the government, enabling them to track the health data of individual citizens with a unique health ID while supporting demographic visualization of the data.
 
 Some salient features of this project are:
 
