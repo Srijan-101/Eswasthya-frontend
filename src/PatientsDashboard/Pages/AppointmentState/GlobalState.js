@@ -90,7 +90,7 @@ const AppointmentContextProvider = (props) => {
                 'Authorization': `Bearer ${getStoredCookie("token")}`,
             },
         }).then((res) => {
-            console.log(res);
+            console.log(AppointmentData.appointmentTime);
             saveAppointmentId(res.data.data);
             setConfirm(true);
         }).catch((error) => console.log(error))
