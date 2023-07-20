@@ -105,17 +105,17 @@ const PatientsInfo = () => {
                         </thead>
                         <tbody>
                             {
-                                !loading ? Medication?.map((ele, key) => {
+                            Medication.length !== 0 ? Medication?.resData.splice(0,5).map((ele, key) => {
                                     return (
                                         <tr>
-                                            <td className='py-3'>{ele.medicineName}</td>
+                                            <td className='py-3'>{ele.medicationName}</td>
                                             <td>{ele.dosageInUnit} Mg</td>
                                             <td>{ele.durationInDays} Days</td>
                                             <td className='text-xs'>{ele.startDate} - {ele.endDate}</td>
                                             <td><button type="button" class=" py-2 text-sm w-[90px] font-medium text-center text-white bg-blue-400 rounded-lg  focus:outline-none">Active</button></td>
                                         </tr>
                                     )
-                                }) : null
+                                })  : null
                             }
 
                         </tbody>

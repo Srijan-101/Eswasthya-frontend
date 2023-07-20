@@ -201,7 +201,7 @@ const ProvinceContextProvider = (props) => {
         if (optionControl.firstOp === "Immunization" && optionControl.SecondOp !== null) {
             axios({
                 method: "GET",
-                url: `${process.env.REACT_APP_API}api/dashboard/admin/get-vaccination-count-in-province?provinceId=${provinceId}&medicineName=${optionControl.SecondOp}`,
+                url: `${process.env.REACT_APP_API}api/dashboard/admin/get-vaccination-count-in-province?provinceId=${provinceId}&vaccineName=${optionControl.SecondOp}`,
                 headers: {
                     'Authorization': `Bearer ${getStoredCookie("token")}`,
                 },

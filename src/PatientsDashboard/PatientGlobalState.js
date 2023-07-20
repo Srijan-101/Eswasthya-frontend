@@ -11,6 +11,8 @@ const PatientContextProvider = (props) => {
 
 
     const [Medication , setMedication] = useState([]);
+
+
     const [Diagonsis,setDiagonsis] = useState([]);
 
 
@@ -18,6 +20,8 @@ const PatientContextProvider = (props) => {
 
 
     useEffect(() => {
+        setDiagonsis([]);
+        setMedication([]);
         axios({
             method: "GET",
             url: `${process.env.REACT_APP_API}api/patient/view-by-user-id/${isAuth().userId}`,
@@ -45,26 +49,39 @@ const PatientContextProvider = (props) => {
                         })
                     })
                     .catch((error) => console.log(error))
-            })
-            .catch((error) => console.log(error))
 
-            axios({
-                method: "GET",
-                url: `${process.env.REACT_APP_API}api/diagnosis/list-by-patient/${localStorage.getItem("patientId")}`,
-                headers: {
-                    'Authorization': `Bearer ${getStoredCookie("token")}`,
-                },
-            })
-            .then((res) => {
-                  let resData = res?.data?.data;
-                  let updateData = {...Diagonsis,resData}
-                  setDiagonsis(updateData);
+                    axios({
+                        method: "GET",
+                        url: `${process.env.REACT_APP_API}api/prescription/list?patientId=${localStorage.getItem("patientId")}`,
+                        headers: {
+                            'Authorization': `Bearer ${getStoredCookie("token")}`,
+                        },
+                    })
+                    .then((res) => {
+                          let resData = res?.data?.data;
+                          let updateData = {...Medication,resData}
+                          setMedication(updateData);
+                    })
+                    .catch((error) => console.log(error))
+
+                    axios({
+                        method: "GET",
+                        url: `${process.env.REACT_APP_API}api/diagnosis/list-by-patient/${localStorage.getItem("patientId")}`,
+                        headers: {
+                            'Authorization': `Bearer ${getStoredCookie("token")}`,
+                        },
+                    })
+                    .then((res) => {
+                          let resData = res?.data?.data;
+                          let updateData = {...Diagonsis,resData}
+                          setDiagonsis(updateData);
+                    })
+                    .catch((error) => console.log(error))
             })
             .catch((error) => console.log(error))
     }, [])
 
 
-   console.log(Diagonsis);
 
 
     // useEffect(() => { 

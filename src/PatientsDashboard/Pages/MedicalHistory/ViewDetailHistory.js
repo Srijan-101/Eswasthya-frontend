@@ -70,7 +70,7 @@ const ViewDetailHistory = () => {
             </button>
 
 
-            <div className="w-full bg-metal mx-auto grid lg:grid-rows-2 lg:grid-flow-col gap-2 md:grid-col-1">
+            <div className="w-full h-screen max-h-full bg-metal mx-auto grid lg:grid-rows-2 lg:grid-flow-col gap-2 md:grid-col-1">
                 <div className="lg:row-span-2  h-max rounded-sm border-[2px] border-[#f8f8f8] bg-white shadow-xl ">
                     <div className="info flex items-center bg-eswasthyaprim text-white p-3">
                         <span className='text-2xl mr-2'><RiMedicineBottleFill /></span> General Information

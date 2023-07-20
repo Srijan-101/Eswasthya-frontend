@@ -50,6 +50,8 @@ export const AuthContextProvider = (props) => {
      const removeLocalstorage = (key) => {
         if(window !== 'undefined'){
             localStorage.removeItem(key)
+            localStorage.removeItem("patientId");
+            localStorage.removeItem("doctorId");
         }
     }
     

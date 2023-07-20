@@ -20,13 +20,14 @@ const ViewMedical = () => {
 
     const GoBack = () => {
         navigate(-1);
-   }
+    }
 
 
     const [AppointmentInformation, setAppointmentInformation] = useState();
 
     const [Reports, setReports] = useState();
     const [Drug, setDrug] = useState();
+    const [AI, setAI] = useState();
 
     const { pastAppointmentId } = useParams();
 
@@ -39,12 +40,12 @@ const ViewMedical = () => {
             },
         })
             .then((res) => {
-          
+
                 setReports(res?.data?.data?.testResultList);
                 setDrug(res?.data?.data?.prescriptionList);
                 setAppointmentInformation({
-                    diseaseName : res?.data?.data?.diseaseName,
-                    doctorImage : res?.data?.data?.doctorDetail?.imagePath,
+                    diseaseName: res?.data?.data?.diseaseName,
+                    doctorImage: res?.data?.data?.doctorDetail?.imagePath,
                     doctorName: res?.data?.data?.doctorDetail?.firstName + res?.data?.data?.doctorDetail?.lastName,
                     doctorSpecialization: res?.data?.data?.doctorDetail?.specialization,
                     Nmcno: res?.data?.data?.doctorDetail?.nmcLicenseNo,
@@ -54,14 +55,26 @@ const ViewMedical = () => {
                 })
             })
             .catch((error) => console.log(error))
+
+        axios({
+            method: "GET",
+            url: `${process.env.REACT_APP_API}api/ai-diagnosed-disease/get?appointmentId=${pastAppointmentId}`,
+            headers: {
+                'Authorization': `Bearer ${getStoredCookie("token")}`,
+            },
+        })
+            .then((res) => {
+                setAI(res?.data?.data)
+            })
+            .catch((error) => console.log(error));
     }, [])
 
-   
+
 
     return (
         <>
             {!patientsInformation?.AppointmentDetails?.isDiagnosisFilled ? <AddDetailsWidget patientsInformation={patientsInformation} /> : null}
-            <button  onClick={GoBack} type="button" class="mb-5 bg-[#72b4f5] text-white rounded-md  border-gray-100 py-2  px-3">
+            <button onClick={GoBack} type="button" class="mb-5 bg-[#72b4f5] text-white rounded-md  border-gray-100 py-2  px-3">
                 <div class="flex flex-row align-middle">
                     <svg class="w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
@@ -70,7 +83,7 @@ const ViewMedical = () => {
                 </div>
             </button>
 
-            <div className="w-full h-screen bg-metal mx-auto grid lg:grid-rows-2 lg:grid-flow-col gap-2 md:grid-col-1">
+            <div className="w-full h-max bg-metal mx-auto grid lg:grid-rows-2 lg:grid-flow-col gap-2 md:grid-col-1">
                 <div className="lg:row-span-2  h-max rounded-sm border-[2px] border-[#f8f8f8] bg-white shadow-xl ">
                     <div className="info flex items-center bg-eswasthyaprim text-white p-3">
                         <span className='text-2xl mr-2'><RiMedicineBottleFill /></span> General Information
@@ -139,6 +152,27 @@ const ViewMedical = () => {
                                     <MedicalReport Reports={Reports} setReports={setReports} />
                                 </div>
                             </div>
+                            <div className='p-5 '>
+                                <p class="text-xl p-3 font-medium text-gray-900 truncate dark:text-white">
+                                    Machine learning predicted result
+                                </p>
+                                <div class="w-full p-5  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                    {
+                                        !AI ? <div class="text-base text-center font-semibold">No medical record</div> : (
+                                            <>
+                                                <div class="p-2 space-y-3">
+                                                    {AI?.isDetected === true ? (<p className="pl-3 pr-3 break-words tracking-tight text-gray-500 text-sm">Analyzing the X-ray, our AI has predicted that the patient may have pneumonia.</p>) : null}
+
+                                                    {AI?.isDetected  === false ? <p className="pl-3 pr-3 break-words tracking-tight text-gray-500 text-sm">Analyzing the X-ray, our AI has predicted that the patient may not have pneumonia.</p> : null}
+                                                </div>
+                                                <div className="m-4">
+                                                    <img class="h-auto max-w-full" src={AI?.imagePath} alt="AI image" />
+                                                </div>
+                                            </>
+                                        )
+                                    }
+                                </div>
+                            </div>
 
                         </div>
 
@@ -181,6 +215,9 @@ const ViewMedical = () => {
                                 </ol>
                             </div>
                         </div>
+
+
+
 
                     </div>
                 </div>
